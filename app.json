@@ -1,0 +1,86 @@
+{
+  "expo": {
+    "name": "Fakrny",
+    "slug": "fakrny",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "fakrny",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": false,
+    "description": "Never miss your medicine again. Fakrny is your intelligent medicine reminder assistant with AI-powered prescription scanning.",
+    "privacy": "public",
+    "splash": {
+      "image": "./assets/images/app-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#17bebb"
+    },
+    "notification": {
+      "color": "#17bebb",
+      "androidMode": "default",
+      "androidCollapsedTitle": "Medicine Reminder"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fakrny.app",
+      "buildNumber": "1",
+      "splash": {
+        "image": "./assets/images/app-icon.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#17bebb"
+      },
+      "infoPlist": {
+        "NSCameraUsageDescription": "Fakrny needs camera access to scan prescription images.",
+        "NSPhotoLibraryUsageDescription": "Fakrny needs photo library access to select prescription images.",
+        "NSMicrophoneUsageDescription": "Fakrny does not use the microphone."
+      }
+    },
+    "android": {
+      "package": "com.fakrny.app",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "READ_MEDIA_IMAGES",
+        "POST_NOTIFICATIONS"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#17bebb"
+      },
+      "splash": {
+        "image": "./assets/images/app-icon.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#17bebb"
+      },
+      "blockedPermissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-splash-screen",
+      "expo-web-browser",
+      "expo-secure-store",
+      [
+        "expo-notifications",
+        {
+          "color": "#17bebb"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app needs access to your photos to scan prescriptions.",
+          "cameraPermission": "The app needs access to your camera to scan prescriptions."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
