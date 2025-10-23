@@ -1,51 +1,19 @@
 workflows:
-  fakrny_android:
-    name: Fakrny • Android AAB + APK
+  fakrny_expo_eas:
+    name: Fakrny • Expo EAS Android Build
     max_build_duration: 60
     instance_type: mac_mini_m2
 
     environment:
-      groups:
-        - android_signing  # group with KEYSTORE_PASSWORD, KEY_PASSWORD, KEY_ALIAS
+      vars:
+        EXPO_TOKEN: $EXPO_TOKEN  # Your Expo robot token from Demandcom org
 
     scripts:
       - name: Install dependencies
-        script: npm install
-
-      - name: Generate keystore
-        script: |
-          keytool -genkeypair -v \
-            -keystore fakrny-upload-keystore.jks \
-            -storepass $KEYSTORE_PASSWORD \
-            -keypass $KEY_PASSWORD \
-            -alias $KEY_ALIAS \
-            -keyalg RSA -keysize 2048 -validity 10000 \
-            -dname "CN=Fakrny, OU=Dev, O=Fakrny, L=City, S=State, C=US"
-
-      - name: Configure Gradle signing
-        script: |
-          echo "MYAPP_UPLOAD_STORE_FILE=fakrny-upload-keystore.jks" >> android/gradle.properties
-          echo "MYAPP_UPLOAD_KEY_ALIAS=$KEY_ALIAS" >> android/gradle.properties
-          echo "MYAPP_UPLOAD_STORE_PASSWORD=$KEYSTORE_PASSWORD" >> android/gradle.properties
-          echo "MYAPP_UPLOAD_KEY_PASSWORD=$KEY_PASSWORD" >> android/gradle.properties
-          mkdir -p android/app
-          mv fakrny-upload-keystore.jks android/app/
-
-      - name: Build AAB (Google Play)
-        script: |
-          cd android
-          ./gradlew bundleRelease
-
-      - name: Build APK (for manual installs)
-        script: |
-          cd android
-          ./gradlew assembleRelease
+        script: npm ci
+      - name: Build Android App Bundle using EAS
+        script: npx eas build --platform android --profile production --non-interactive
 
     artifacts:
-      - android/app/build/outputs/**/*.aab
-      - android/app/build/outputs/**/*.apk
-
-    publishing:
-      email:
-        recipients:
-          - mazen8055@gmail.com
+      - dist/**/*.apk
+      - dist/**/*.aab
